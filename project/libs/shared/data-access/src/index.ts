@@ -1,1 +1,1 @@
-export * from './lib/shared-data-access';
+export * from './repository/base-memory.repository';
