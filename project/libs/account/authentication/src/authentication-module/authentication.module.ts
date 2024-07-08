@@ -6,6 +6,6 @@ import { BlogUserModule } from '@project/account/blog-user';
 @Module({
   imports: [BlogUserModule],
   controllers: [AuthenticationController],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService]
 })
 export class AuthenticationModule {}
