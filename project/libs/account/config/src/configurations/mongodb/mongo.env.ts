@@ -1,14 +1,13 @@
-import { IsEmpty, IsNumber, IsOptional, IsString, Max, Min, validateOrReject } from 'class-validator';
+import { IsNumber, IsOptional, IsString, Max, Min, validate } from 'class-validator';
 
 import { EnvValidationMessage } from './mongo.messages';
 import { MIN_PORT, MAX_PORT, DEFAULT_MONGO_PORT } from './mongo.const';
+import { error } from 'console';
 
 export class MongoConfiguration {
-  @IsEmpty({ message: "FUCCCCCCCCCCCCCCK" })
   @IsString({ message: EnvValidationMessage.DBNameRequired })
   public name: string;
 
-  @IsEmpty({ message: "FUCCCCCCCCCCCCCCK" })
   @IsString({ message: EnvValidationMessage.DBHostRequired })
   public host: string;
 
@@ -28,6 +27,9 @@ export class MongoConfiguration {
   public authBase: string;
 
   public async validate(): Promise<void> {
-    await validateOrReject(this);
+    const errors = await validate(this, { skipMissingProperties: false });
+    if (errors.length > 0) {
+      throw new Error(errors.map(error => error.toString(false,false,'',true)).join());
+    }
   }
 }
