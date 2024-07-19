@@ -55,3 +55,5 @@ npx nx g @nx/node:library post --directory=libs/blog/post
 # docker compose --file ./apps/account/docker-compose.dev.yml --env-file ./apps/account/.env --project-name "readme" up -d
 docker compose --file ./apps/account/docker-compose.dev.yml up -d
 docker compose --file ./apps/blog/docker-compose.dev.yml up -d
+
+npx prisma init --datasource-provider postgresql
