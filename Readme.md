@@ -57,3 +57,5 @@ docker compose --file ./apps/account/docker-compose.dev.yml up -d
 docker compose --file ./apps/blog/docker-compose.dev.yml up -d
 
 npx prisma init --datasource-provider postgresql
+npx prisma format ./prisma/schema.prisma
+npx prisma migrate dev --name "Added model for Post" --schema ./prisma/schema.prisma --skip-generate
