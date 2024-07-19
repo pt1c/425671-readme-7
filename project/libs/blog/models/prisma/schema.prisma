@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../../node_modules/.prisma/client"
+  output   = "../../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,18 +15,19 @@ datasource db {
 }
 
 model Post {
-  id       String         @id @default(uuid()) @map("id")
-  userId   String         @map("user_id")
-  postType PostType       @default(text)
-  status   PostStatusType @default(published)
-  title    String
-  announce String // quoteAuthor
-  content  String
-  url      String // photo url, video url
-  Likes     Likes[]
-  Comment   Comment[]
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  id        String         @id @default(uuid()) @map("id")
+  userId    String         @map("user_id")
+  postType  PostType       @default(text)
+  status    PostStatusType @default(published)
+  title     String
+  announce  String // quoteAuthor
+  content   String
+  url       String // photo url, video url
+  tags      Tag[]
+  likes     Likes[]
+  comment   Comment[]
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
 
   @@index([title])
   @@map("posts")
@@ -43,6 +44,17 @@ enum PostType {
 enum PostStatusType {
   published
   draft
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  tag       String
+  posts     Post[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([tag])
+  @@map("tags")
 }
 
 model Comment {
@@ -68,5 +80,5 @@ model Likes {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([postId, userId])
-  @@map("favorites")
+  @@map("likes")
 }
