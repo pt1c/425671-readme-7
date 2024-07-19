@@ -51,4 +51,7 @@ git clone SSH-адрес_вашего_форка
 npx nx generate @nx/nest:controller --directory libs/account/authentication/src/authentication-module
 npx nx generate @nx/nest:service --directory libs/account/authentication/src/authentication-module
 npx nx g @nx/node:library post --directory=libs/blog/post
-docker-compose -f ./apps/account/docker-compose.dev.yml up -d
+
+# docker compose --file ./apps/account/docker-compose.dev.yml --env-file ./apps/account/.env --project-name "readme" up -d
+docker compose --file ./apps/account/docker-compose.dev.yml up -d
+docker compose --file ./apps/blog/docker-compose.dev.yml up -d
