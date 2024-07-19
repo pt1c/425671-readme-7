@@ -14,14 +14,58 @@ datasource db {
 }
 
 model Post {
-  id          String   @id @default(uuid()) @map("id")
-  title       String
-  description String
-  content     String
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  userId      String   @map("user_id")
+  id       String         @id @default(uuid()) @map("id")
+  userId   String         @map("user_id")
+  postType PostType       @default(text)
+  status   PostStatusType @default(published)
+  title    String
+  announce String // quoteAuthor
+  content  String
+  url      String // photo url, video url
+  Likes     Likes[]
+  Comment   Comment[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
 
   @@index([title])
   @@map("posts")
+}
+
+enum PostType {
+  photo
+  video
+  text
+  quote
+  link
+}
+
+enum PostStatusType {
+  published
+  draft
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String   @map("post_id")
+  userId    String   @map("user_id")
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([postId])
+  @@map("comments")
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String   @map("post_id")
+  userId    String   @map("user_id")
+  isDelete  Boolean
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([postId, userId])
+  @@map("favorites")
 }
