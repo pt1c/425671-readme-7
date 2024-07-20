@@ -1,9 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker/locale/ru';
-import { PostTag, PostType, PostStatusType } from '@project/shared/core';
+import { Post, Comment, PostLike, PostTag, PostType, PostStatusType } from '@project/shared/core';
 import { shuffleArray, getRandomItem, generateRandomValue } from '@project/shared/helpers';
-import { connect } from 'net';
-import { create } from 'domain';
 
 const USERS_COUNT = 3;
 // Dynamic read
@@ -24,32 +22,6 @@ const POST_LINK_COUNT = 1
 const TAGS_MAX_COUNT = 5;
 const LIKES_MAX_COUNT = 50;
 const COMMENTS_MAX_COUNT = 10;
-
-type PostComment = {
-  id?: string,
-  userId: string,
-  message: string,
-}
-
-type PostLike = {
-  id?: string,
-  userId: string,
-  isDelete: boolean,
-}
-
-type Post = {
-  id?: string,
-  userId: string,
-  postType: PostType,
-  status: PostStatusType,
-  title: string,
-  announce: string, // quoteAuthor
-  content: string,
-  url: string, // photo url, video url
-  tags: PostTag[],
-  likes: PostLike[],
-  comments: PostComment[],
-}
 
 function getPosts(userIds: string[]): Post[] {
   const postsArr: Post[] = [];
@@ -140,8 +112,8 @@ function getUsersIds(): string[] {
   return usersIdsArr;
 }
 
-function getComments(usersIds: string[]): PostComment[] {
-  const commentsArr: PostComment[] = [];
+function getComments(usersIds: string[]): Comment[] {
+  const commentsArr: Comment[] = [];
   const commentsNum = generateRandomValue(0, COMMENTS_MAX_COUNT);
 
   for(let i=0; i<commentsNum; i++){
@@ -235,10 +207,6 @@ async function seedDb(prismaClient: PrismaClient) {
       }
     })
   }
-
-
-  // console.log(mockUsersIds);
-  // console.log(mockPosts);
 
   console.info('🤘️ Database was filled');
 }
