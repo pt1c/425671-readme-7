@@ -61,6 +61,8 @@ npx prisma format ./prisma/schema.prisma
 npx prisma migrate dev --name "Added model for Post" --schema ./prisma/schema.prisma --skip-generate
  
 npx nx run blog:db:lint
+npx nx run blog:db:format
 npx nx run blog:db:migrate -- --name="some text"
 npx nx run blog:db:reset
 npx nx run blog:db:generate
+npx nx run blog:db:seed

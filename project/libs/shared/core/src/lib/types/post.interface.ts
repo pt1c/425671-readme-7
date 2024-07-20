@@ -13,7 +13,7 @@ export enum PostStatusType {
 
 export interface Post {
   id?: string;
-  tags?: string[];
+  tags?: PostTag[];
   author: string;
   status: PostStatusType;
   created: Date;
@@ -48,4 +48,9 @@ export type PostLink = Post & {
   type: PostType.Link;
   url: string;
   description?: string;
+}
+
+export type PostTag = {
+  id?: string;
+  tag: string;
 }
