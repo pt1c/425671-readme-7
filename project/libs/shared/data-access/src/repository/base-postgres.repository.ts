@@ -1,4 +1,4 @@
-import { PrismaClientService } from '@project/blog-models';
+import { PrismaClientService } from '@project/blog/models';
 import { Entity, StorableEntity, EntityFactory } from '@project/shared/core';
 import { Repository } from './repository.interface';
 
@@ -13,7 +13,7 @@ DocumentType = ReturnType<T['toPOJO']>
   ) {}
 
   protected createEntityFromDocument(document: DocumentType): T | null {
-    if (! document) {
+    if (!document) {
       return null;
     }
 
