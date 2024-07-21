@@ -1,51 +1,22 @@
-export enum PostType {
-  Photo = 'photo',
-  Video = 'video',
-  Text = 'text',
-  Quote = 'quote',
-  Link = 'link'
-}
-
-export enum PostStatusType {
-  Published = 'published',
-  Draft = 'draft'
-}
+import { PostTag } from './post-tag.interface'
+import { Comment } from './comment.interface'
+import { PostLike } from './post-like.interface'
+import { PostType } from './post-type.enum'
+import { PostStatusType } from './post-status-type.enum'
 
 export interface Post {
   id?: string;
-  tags?: string[];
-  author: string;
+  userId: string;
+  postType: PostType;
   status: PostStatusType;
-  created: Date;
-  published: Date;
-}
-
-export type PostPhoto = Post & {
-  type: PostType.Photo;
-  photo: string;
-}
-
-export type PostVideo = Post & {
-  type: PostType.Video;
-  title: string;
-  url: string;
-}
-
-export type PostText = Post & {
-  type: PostType.Text;
   title: string;
   announce: string;
-  text: string;
-}
-
-export type PostQuote = Post & {
-  type: PostType.Quote;
-  text: string;
-  quoteAuthor: string;
-}
-
-export type PostLink = Post & {
-  type: PostType.Link;
+  content: string;
   url: string;
-  description?: string;
+  tags?: PostTag[];
+  likes: PostLike[],
+  comments: Comment[],
+  published?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

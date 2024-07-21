@@ -51,4 +51,18 @@ git clone SSH-адрес_вашего_форка
 npx nx generate @nx/nest:controller --directory libs/account/authentication/src/authentication-module
 npx nx generate @nx/nest:service --directory libs/account/authentication/src/authentication-module
 npx nx g @nx/node:library post --directory=libs/blog/post
-docker-compose -f ./apps/account/docker-compose.dev.yml up -d
+
+# docker compose --file ./apps/account/docker-compose.dev.yml --env-file ./apps/account/.env --project-name "readme" up -d
+docker compose --file ./apps/account/docker-compose.dev.yml up -d
+docker compose --file ./apps/blog/docker-compose.dev.yml up -d
+
+npx prisma init --datasource-provider postgresql
+npx prisma format ./prisma/schema.prisma
+npx prisma migrate dev --name "Added model for Post" --schema ./prisma/schema.prisma --skip-generate
+ 
+npx nx run blog:db:lint
+npx nx run blog:db:format
+npx nx run blog:db:migrate -- --name="some text"
+npx nx run blog:db:reset
+npx nx run blog:db:generate
+npx nx run blog:db:seed
