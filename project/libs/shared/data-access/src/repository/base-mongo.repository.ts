@@ -10,7 +10,7 @@ export abstract class BaseMongoRepository<T extends Entity & StorableEntity<Retu
     protected readonly model: Model<DocumentType>,
   ) {}
 
-  protected createEntityFromDocument(document: DocumentType | null): T | null {
+  protected createEntityFromDocument(document?: DocumentType): T | null {
     if (!document) {
       return null;
     }

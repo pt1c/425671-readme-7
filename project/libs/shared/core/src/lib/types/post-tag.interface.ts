@@ -1,4 +1,4 @@
-export type PostTag = {
+export interface PostTag {
   id?: string;
   tag: string;
   createdAt?: Date;
