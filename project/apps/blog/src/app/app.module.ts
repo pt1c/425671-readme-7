@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 
+import { AccountConfigModule } from '@project/account/config';
 import { CommentModule } from '@project/blog/comment';
 import { TagModule } from '@project/blog/tag';
 
 
 @Module({
-  imports: [CommentModule, TagModule],
+  imports: [AccountConfigModule, CommentModule, TagModule],
   controllers: [],
   providers: [],
 })
